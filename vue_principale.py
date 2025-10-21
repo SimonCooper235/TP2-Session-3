@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QMainWindow, QLineEdit, QVBoxLayout, QMessageBox
 from PyQt6.uic import loadUi
 
-from modele_integration import ModeleInetgration
+
 from modele_liste_fonctions import ModeleListeFonctions
 from vue_canvas import MPLCanvas
 
@@ -12,7 +12,7 @@ class VuePrincipal(QMainWindow):
     borneSupLineEdit : QLineEdit()
     matplotlibVLayout : QVBoxLayout()
 
-    __model = ModeleInetgration()
+    __model = ModeleListeFonctions
     def __init__(self):
         super().__init__()
         loadUi('ui/fenêtre_principale.ui', self)
@@ -23,6 +23,9 @@ class VuePrincipal(QMainWindow):
         self.matplotlibVLayout.insertWidget(0, canvas)
 
         self.fonctionLineEdit.editingFinished.connect(self.on_fonction_edited)
+        self.borneInfLineEdit.text_changed.connect(self.on_borne_edited(self.borneInfLineEdit))
+        self.borneSupLineEdit.text_changed.connect(self.on_borne_edited(self.borneSupLineEdit))
+
 
 
 
@@ -35,4 +38,17 @@ class VuePrincipal(QMainWindow):
         else :
             QMessageBox.critical(self, "Erreur", "La fonction est invalide")
             self.fonctionLineEdit.clear()
-            self.fonctionLineEdit.setStyleSheet("background-color: white;")
+            self.fonctionLineEdit.setStyleSheet("background-color: red;")
+
+    def on_borne_edited(self, borne):
+        borne_str = borne.text()
+        if self.model.validate_bornes(borne_str):
+            if borne_str is self.borneInfLineEdit.text():
+                self.model.borneInf = borne_str
+            elif borne_str is self.borneSupLineEdit.text():
+                self.model.borneSup = borne_str
+        else:
+            if borne_str is self.borneInfLineEdit.text():
+                self.borneInfLineEdit.setStyleShee("background-color : red;")
+            elif borne_str is self.borneSupLineEdit.text():
+                self.borneSupLineEdit.setStyleShee("background-color : red;")
