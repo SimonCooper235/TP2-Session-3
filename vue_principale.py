@@ -44,9 +44,9 @@ class VuePrincipal(QMainWindow):
         borne_str = borne.text()
         if self.model.validate_bornes(borne_str):
             if borne_str is self.borneInfLineEdit.text():
-                self.model.borneInf = borne_str
+                self.model.borneInf(borne_str)
             elif borne_str is self.borneSupLineEdit.text():
-                self.model.borneSup = borne_str
+                self.model.borneSup(borne_str)
         else:
             if borne_str is self.borneInfLineEdit.text():
                 self.borneInfLineEdit.setStyleShee("background-color : red;")

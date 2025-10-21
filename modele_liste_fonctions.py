@@ -31,9 +31,20 @@ class ModeleListeFonctions(QObject):
     def borneInf(self):
         return self.__borneInf
 
+    @fonction.setter
+    def borneInf(self, borne):
+        self.__borneInf = borne
+        self.modelChanged.emit()
+
     @property
     def borneSup(self):
         return self.__borneSup
+
+    @fonction.setter
+    def borneSup(self, borne):
+        self.__borneSup = borne
+        self.modelChanged.emit()
+
 
     def validate_fonction(self, fonction_str):
         return True
