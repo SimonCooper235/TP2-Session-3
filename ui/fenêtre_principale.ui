@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1440</width>
-    <height>879</height>
+    <width>968</width>
+    <height>660</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,34 +17,63 @@
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>240</y>
+      <x>10</x>
+      <y>150</y>
       <width>731</width>
       <height>24</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetMaximumSize</enum>
+     </property>
      <item>
       <widget class="QLabel" name="label_2">
+       <property name="maximumSize">
+        <size>
+         <width>43</width>
+         <height>22</height>
+        </size>
+       </property>
        <property name="text">
         <string>Borne inf</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit"/>
+      <widget class="QLineEdit" name="borneInfLineEdit">
+       <property name="maximumSize">
+        <size>
+         <width>337</width>
+         <height>20</height>
+        </size>
+       </property>
+      </widget>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <widget class="QLabel" name="label_3">
+         <property name="maximumSize">
+          <size>
+           <width>48</width>
+           <height>20</height>
+          </size>
+         </property>
          <property name="text">
           <string>Borne sup</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_2"/>
+        <widget class="QLineEdit" name="borneSupLineEdit">
+         <property name="maximumSize">
+          <size>
+           <width>281</width>
+           <height>20</height>
+          </size>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -53,22 +82,25 @@
    <widget class="QWidget" name="formLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>100</y>
+      <x>10</x>
+      <y>10</y>
       <width>731</width>
-      <height>139</height>
+      <height>133</height>
      </rect>
     </property>
-    <layout class="QFormLayout" name="formLayout">
-     <property name="labelAlignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetMaximumSize</enum>
      </property>
-     <property name="formAlignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-     </property>
-     <item row="1" column="0">
+     <item>
       <widget class="QLabel" name="label">
        <property name="minimumSize">
+        <size>
+         <width>47</width>
+         <height>131</height>
+        </size>
+       </property>
+       <property name="maximumSize">
         <size>
          <width>47</width>
          <height>131</height>
@@ -82,9 +114,15 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="lineEdit_5">
+     <item>
+      <widget class="QLineEdit" name="fonctionLineEdit">
        <property name="minimumSize">
+        <size>
+         <width>676</width>
+         <height>131</height>
+        </size>
+       </property>
+       <property name="maximumSize">
         <size>
          <width>676</width>
          <height>131</height>
@@ -100,27 +138,33 @@
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>260</y>
+      <x>10</x>
+      <y>180</y>
       <width>731</width>
       <height>291</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout"/>
+    <layout class="QVBoxLayout" name="matplotlibVLayout"/>
    </widget>
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>550</y>
+      <x>10</x>
+      <y>470</y>
       <width>731</width>
       <height>101</height>
      </rect>
     </property>
+    <property name="maximumSize">
+     <size>
+      <width>731</width>
+      <height>101</height>
+     </size>
+    </property>
     <property name="title">
      <string>Intégration</string>
     </property>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -196,7 +240,16 @@
        <height>80</height>
       </rect>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,0">
+      <property name="spacing">
+       <number>6</number>
+      </property>
+      <property name="sizeConstraint">
+       <enum>QLayout::SetFixedSize</enum>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
       <item>
        <layout class="QFormLayout" name="formLayout_2">
         <item row="0" column="0">
@@ -234,7 +287,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1440</width>
+     <width>968</width>
      <height>21</height>
     </rect>
    </property>

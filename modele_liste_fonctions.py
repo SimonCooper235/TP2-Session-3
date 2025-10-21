@@ -5,8 +5,8 @@ import sympy as sp
 class ModeleListeFonctions(QObject):
     __x = sp.symbols("x")
     __fonction : None=None
-    __borneInf : int
-    __borneSup : int
+    __borneInf : int = -1
+    __borneSup : int = 2
 
     modelChanged = pyqtSignal()
 
@@ -31,7 +31,7 @@ class ModeleListeFonctions(QObject):
     def borneInf(self):
         return self.__borneInf
 
-    @fonction.setter
+    @borneInf.setter
     def borneInf(self, borne):
         self.__borneInf = borne
         self.modelChanged.emit()
@@ -40,7 +40,7 @@ class ModeleListeFonctions(QObject):
     def borneSup(self):
         return self.__borneSup
 
-    @fonction.setter
+    @borneSup.setter
     def borneSup(self, borne):
         self.__borneSup = borne
         self.modelChanged.emit()
@@ -50,6 +50,8 @@ class ModeleListeFonctions(QObject):
         return True
 
 
-    def validate_bornes(self, borne_str):
+    def validate_bornes(self, bornes_str):
+        #if self.__borneSup <= self.__borneInf:
         return True
+
 
