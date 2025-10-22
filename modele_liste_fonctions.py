@@ -51,7 +51,5 @@ class ModeleListeFonctions(QObject):
 
 
     def validate_bornes(self, bornes_str):
-        #if self.__borneSup <= self.__borneInf:
         return True
-
 

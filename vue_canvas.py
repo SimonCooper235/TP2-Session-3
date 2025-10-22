@@ -1,18 +1,18 @@
 from PyQt6.QtWidgets import QMessageBox
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg
 
 
 from modele_liste_fonctions import ModeleListeFonctions
 
 
-class MPLCanvas(FigureCanvas):
+class MPLCanvas(FigureCanvasQTAgg):
     __model : ModeleListeFonctions
 
     def __init__(self, model : ModeleListeFonctions):
         self.__fig, self.__ax = plt.subplots()
-        super().__init__()
+        super().__init__(self.__fig)
 
         self.__model = model
         self.__model.modelChanged.connect(self.dessiner)

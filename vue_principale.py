@@ -38,15 +38,21 @@ class VuePrincipal(QMainWindow):
             self.fonctionLineEdit.setStyleSheet("background-color: red;")
 
     def on_borne_inf_edited(self):
-        borne_int = int(self.borneInfLineEdit.text())
-        if self.model.validate_bornes(borne_int):
-            self.model.borneInf = borne_int
-        else:
-            self.borneInfLineEdit.setStyleSheet("background-color : red;")
+        try:
+            borne_int = int(self.borneInfLineEdit.text())
+            if self.model.validate_bornes(borne_int):
+                self.model.borneInf = borne_int
+            else:
+                self.borneInfLineEdit.setStyleSheet("background-color : red;")
+        except ValueError as e :
+            pass
 
     def on_borne_sup_edited(self):
-        borne_int = int(self.borneSupLineEdit.text())
-        if self.model.validate_bornes(borne_int):
-            self.model.borneSup = borne_int
-        else:
-            self.borneSupLineEdit.setStyleSheet("background-color : red;")
+        try:
+            borne_int = int(self.borneSupLineEdit.text())
+            if self.model.validate_bornes(borne_int):
+                self.model.borneSup = borne_int
+            else:
+                self.borneSupLineEdit.setStyleSheet("background-color : red;")
+        except ValueError as e :
+            pass
