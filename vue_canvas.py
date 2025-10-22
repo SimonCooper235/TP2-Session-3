@@ -29,12 +29,6 @@ class MPLCanvas(FigureCanvasQTAgg):
 
     def dessiner_integration(self):
         try :
-            self.__ax.clear()
-            f = self.__model.fonction
-            try:
-                dx = (self.__model.borneInf - self.__model.borneSup) / self.__model.nombreHorizontalSlider
-                print(dx)
-            except ZeroDivisionError as e:
-                print(e)
+            pass
         except Exception as e :
-            print(e)
+            QMessageBox.critical(self, "Erreur", "la somme de Riemann et/ou l'intintégration est invalide")

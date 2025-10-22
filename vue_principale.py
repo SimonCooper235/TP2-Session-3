@@ -44,8 +44,10 @@ class VuePrincipal(QMainWindow):
         button_group.addButton(self.droiteCheckBox)
         button_group.setExclusive(True)
 
-        self.calculerPushButton.clicked.connect(canvas.dessiner_integration)
+        self.calculerPushButton.clicked.connect(self.on_calculer_button_push)
         self.nombreHorizontalSlider.valueChanged.connect(self.on_slider_moved)
+
+
 
 
     def on_fonction_edited(self):
@@ -57,9 +59,9 @@ class VuePrincipal(QMainWindow):
             self.fonctionLineEdit.clear()
             self.fonctionLineEdit.setStyleSheet("background-color: red;")
 
-    def on_borne_inf_edited(self):
+    def on_borne_inf_edited(self, borne):
         try:
-            borne_int = int(self.borneInfLineEdit.text())
+            borne_int = int(borne)
             if self.model.validate_bornes(borne_int):
                 self.model.borneInf = borne_int
             else:
@@ -67,9 +69,9 @@ class VuePrincipal(QMainWindow):
         except ValueError as e :
             pass
 
-    def on_borne_sup_edited(self):
+    def on_borne_sup_edited(self, borne):
         try:
-            borne_int = int(self.borneSupLineEdit.text())
+            borne_int = int(borne)
             if self.model.validate_bornes(borne_int):
                 self.model.borneSup = borne_int
             else:
@@ -77,5 +79,10 @@ class VuePrincipal(QMainWindow):
         except ValueError as e :
             pass
 
-    def on_slider_moved(self):
-        self.model.nombreHorizontalSlider = self.model.nombreHorizontalSlider
+    def on_slider_moved(self, value):
+        self.model.nombreHorizontalSlider = value
+
+    def on_calculer_button_push(self):
+        self.model.calculer_somme_riemann()
+        somme_str = f"{self.model.sommeLineEdit}"
+        self.sommeLineEdit.setText(somme_str)

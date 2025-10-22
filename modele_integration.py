@@ -1,11 +1,11 @@
+import numpy as np
 from PyQt6.QtCore import QObject, pyqtSignal
 import sympy as sp
-from PyQt6.QtWidgets import QCheckBox
-
 
 class ModeleIntegration(QObject):
     __x = sp.Symbol('x')
     __fonction : None = None
+    __sommeLineEdit : float = 0
     __borneInf : int = 0
     __borneSup : int = 0
     __nombreHorizontalSlider : int = 0
@@ -75,6 +75,32 @@ class ModeleIntegration(QObject):
     def droiteCheckBox(self, checkBox):
         self.__droiteCheckBox = checkBox
         self.modelChanged.emit()
+
+    @property
+    def sommeLineEdit(self):
+        return self.__sommeLineEdit
+
+    @sommeLineEdit.setter
+    def sommeLineEdit(self, somme):
+        self.__sommeLineEdit = somme
+        self.modelChanged.emit()
+
+    def calculer_somme_riemann(self):
+        x = np.linspace(self.__borneInf, self.__borneSup, 100000)
+        dx = (self.__borneSup - self.__borneInf)/100000
+        if self.__gaucheCheckBox:
+            f = sp.lambdify(self.__x, self.__fonction, 'numpy')
+            somme = np.sum(f(x[:-1]) * dx)
+            self.__sommeLineEdit = somme
+        elif self.__droiteCheckBox:
+            f = sp.lambdify(self.__x, self.__fonction, 'numpy')
+            somme = np.sum(f(x[1:]) * dx)
+            self.__sommeLineEdit = somme
+        else:
+            pass
+
+    def calculer_intégrale(self):
+        pass
 
     def validate_fonction(self, fonction_str):
         return True
