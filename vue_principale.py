@@ -1,24 +1,34 @@
-from PyQt6.QtWidgets import QMainWindow, QLineEdit, QVBoxLayout, QMessageBox
+from PyQt6.QtWidgets import QMainWindow, QLineEdit, QVBoxLayout, QMessageBox, QSlider, QCheckBox, QPushButton, \
+    QButtonGroup
 from PyQt6.uic import loadUi
 
-
+from modele_integration import ModeleIntegration
 from modele_liste_fonctions import ModeleListeFonctions
 from vue_canvas import MPLCanvas
 
 
 class VuePrincipal(QMainWindow):
-    fonctionLineEdit: QLineEdit
-    borneInfLineEdit: QLineEdit
-    borneSupLineEdit: QLineEdit
-    matplotlibVLayout: QVBoxLayout
+    fonctionLineEdit : QLineEdit
+    borneInfLineEdit : QLineEdit
+    borneSupLineEdit : QLineEdit
+    sommeLineEdit : QLineEdit
+    integraleLineEdit : QLineEdit
+    matplotlibVLayout : QVBoxLayout
+    nombreHorizontalSlider : QSlider
+    gaucheCheckBox : QCheckBox
+    droiteCheckBox : QCheckBox
+    calculerPushButton : QPushButton
+    exporterPushButton : QPushButton
 
-    __model = ModeleListeFonctions
+
+    __model = ModeleIntegration
 
     def __init__(self):
         super().__init__()
         loadUi('ui/fenêtre_principale.ui', self)
 
-        self.model = ModeleListeFonctions()
+
+        self.model = ModeleIntegration()
         canvas = MPLCanvas(self.model)
 
         self.matplotlibVLayout.addWidget(canvas)
@@ -29,11 +39,21 @@ class VuePrincipal(QMainWindow):
         self.borneSupLineEdit.textChanged.connect(self.on_borne_sup_edited)
         self.borneSupLineEdit.setText("2")
 
+        button_group = QButtonGroup(self)
+        button_group.addButton(self.gaucheCheckBox)
+        button_group.addButton(self.droiteCheckBox)
+        button_group.setExclusive(True)
+
+        self.calculerPushButton.clicked.connect(canvas.dessiner_integration)
+        self.nombreHorizontalSlider.valueChanged.connect(self.on_slider_moved)
+
+
     def on_fonction_edited(self):
         fonct_str = self.fonctionLineEdit.text()
         if self.model.validate_fonction(fonct_str) :
             self.model.fonction = fonct_str
         else :
+            QMessageBox.critical(self, "Erreur", "la fonction est invalide")
             self.fonctionLineEdit.clear()
             self.fonctionLineEdit.setStyleSheet("background-color: red;")
 
@@ -56,3 +76,6 @@ class VuePrincipal(QMainWindow):
                 self.borneSupLineEdit.setStyleSheet("background-color : red;")
         except ValueError as e :
             pass
+
+    def on_slider_moved(self):
+        self.model.nombreHorizontalSlider = self.model.nombreHorizontalSlider

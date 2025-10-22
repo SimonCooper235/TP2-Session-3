@@ -3,14 +3,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg
 
-
-from modele_liste_fonctions import ModeleListeFonctions
-
+from modele_integration import ModeleIntegration
 
 class MPLCanvas(FigureCanvasQTAgg):
-    __model : ModeleListeFonctions
+    __model : ModeleIntegration
 
-    def __init__(self, model : ModeleListeFonctions):
+    def __init__(self, model : ModeleIntegration):
         self.__fig, self.__ax = plt.subplots()
         super().__init__(self.__fig)
 
@@ -28,3 +26,15 @@ class MPLCanvas(FigureCanvasQTAgg):
             self.draw()
         except Exception as e :
             QMessageBox.critical(self, "Erreur", "la fonction est invalide")
+
+    def dessiner_integration(self):
+        try :
+            self.__ax.clear()
+            f = self.__model.fonction
+            try:
+                dx = (self.__model.borneInf - self.__model.borneSup) / self.__model.nombreHorizontalSlider
+                print(dx)
+            except ZeroDivisionError as e:
+                print(e)
+        except Exception as e :
+            print(e)
