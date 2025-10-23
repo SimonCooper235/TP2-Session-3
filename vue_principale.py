@@ -43,10 +43,11 @@ class VuePrincipal(QMainWindow):
         button_group.addButton(self.gaucheCheckBox)
         button_group.addButton(self.droiteCheckBox)
         button_group.setExclusive(True)
+        self.gaucheCheckBox.setChecked(True)
+        self.gaucheCheckBox.checkStateChanged.connect(self.on_check_changed)
 
         self.calculerPushButton.clicked.connect(self.on_calculer_button_push)
         self.nombreHorizontalSlider.valueChanged.connect(self.on_slider_moved)
-
 
 
 
@@ -84,5 +85,19 @@ class VuePrincipal(QMainWindow):
 
     def on_calculer_button_push(self):
         self.model.calculer_somme_riemann()
+        self.model.calculer_intégrale()
+
         somme_str = f"{self.model.sommeLineEdit}"
         self.sommeLineEdit.setText(somme_str)
+
+        integrale_float = float(self.model.integraleLineEdit)
+        integrale_str = f"{integrale_float}"
+        self.integraleLineEdit.setText(integrale_str)
+
+    def on_check_changed(self):
+        if self.gaucheCheckBox.isChecked():
+            self.model.gaucheCheckBox = True
+            self.model.droiteCheckBox = False
+        else:
+            self.model.gaucheCheckBox = False
+            self.model.droiteCheckBox = True

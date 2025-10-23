@@ -6,9 +6,10 @@ class ModeleIntegration(QObject):
     __x = sp.Symbol('x')
     __fonction : None = None
     __sommeLineEdit : float = 0
+    __integraleLineEdit : float = 0
     __borneInf : int = 0
     __borneSup : int = 0
-    __nombreHorizontalSlider : int = 0
+    __nombreHorizontalSlider : int = 100
     __gaucheCheckBox : bool = True
     __droiteCheckBox : bool = False
 
@@ -85,22 +86,31 @@ class ModeleIntegration(QObject):
         self.__sommeLineEdit = somme
         self.modelChanged.emit()
 
+    @property
+    def integraleLineEdit(self):
+        return self.__integraleLineEdit
+
+    @integraleLineEdit.setter
+    def integraleLineEdit(self, integrale):
+        self.__integraleLineEdit = integrale
+        self.modelChanged.emit()
+
     def calculer_somme_riemann(self):
-        x = np.linspace(self.__borneInf, self.__borneSup, 100000)
-        dx = (self.__borneSup - self.__borneInf)/100000
+        x = np.linspace(self.__borneInf, self.__borneSup, self.__nombreHorizontalSlider + 1)
+        dx = (self.__borneSup - self.__borneInf)/self.__nombreHorizontalSlider
         if self.__gaucheCheckBox:
             f = sp.lambdify(self.__x, self.__fonction, 'numpy')
-            somme = np.sum(f(x[:-1]) * dx)
-            self.__sommeLineEdit = somme
+            gauche_somme = np.sum(f(x[:-1]) * dx)
+            self.__sommeLineEdit = gauche_somme
         elif self.__droiteCheckBox:
             f = sp.lambdify(self.__x, self.__fonction, 'numpy')
-            somme = np.sum(f(x[1:]) * dx)
-            self.__sommeLineEdit = somme
+            droite_somme = np.sum(f(x[1:]) * dx)
+            self.__sommeLineEdit = droite_somme
         else:
             pass
 
     def calculer_intégrale(self):
-        pass
+        self.__integraleLineEdit = sp.integrate(self.__fonction, (self.__x, self.__borneInf, self.__borneSup))
 
     def validate_fonction(self, fonction_str):
         return True
