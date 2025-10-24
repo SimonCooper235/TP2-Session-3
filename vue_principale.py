@@ -1,3 +1,4 @@
+from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import QMainWindow, QLineEdit, QVBoxLayout, QMessageBox, QSlider, QCheckBox, QPushButton, \
     QButtonGroup
 from PyQt6.uic import loadUi
@@ -18,6 +19,7 @@ class VuePrincipal(QMainWindow):
     droiteCheckBox : QCheckBox
     calculerPushButton : QPushButton
     exporterPushButton : QPushButton
+    actionFonctions : QAction
 
 
     __model = ModeleIntegration
