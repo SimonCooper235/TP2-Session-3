@@ -3,7 +3,6 @@ from PyQt6.QtWidgets import QMainWindow, QLineEdit, QVBoxLayout, QMessageBox, QS
 from PyQt6.uic import loadUi
 
 from modele_integration import ModeleIntegration
-from modele_liste_fonctions import ModeleListeFonctions
 from vue_canvas import MPLCanvas
 
 
@@ -46,6 +45,7 @@ class VuePrincipal(QMainWindow):
         self.gaucheCheckBox.setChecked(True)
         self.gaucheCheckBox.checkStateChanged.connect(self.on_check_changed)
 
+        self.calculerPushButton.clicked.connect(canvas.dessiner_integration)
         self.calculerPushButton.clicked.connect(self.on_calculer_button_push)
         self.nombreHorizontalSlider.valueChanged.connect(self.on_slider_moved)
 

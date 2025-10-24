@@ -9,7 +9,7 @@ class ModeleIntegration(QObject):
     __integraleLineEdit : float = 0
     __borneInf : int = 0
     __borneSup : int = 0
-    __nombreHorizontalSlider : int = 100
+    __nombreHorizontalSlider : int = 1
     __gaucheCheckBox : bool = True
     __droiteCheckBox : bool = False
 
