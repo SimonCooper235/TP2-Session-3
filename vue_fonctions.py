@@ -1,7 +1,8 @@
-from PyQt6.QtCore import QObject
-from PyQt6.QtWidgets import QListView, QLineEdit, QPushButton, QMessageBox, QWidget
+from PyQt6.QtWidgets import QListView, QLineEdit, QPushButton, QWidget
 from PyQt6.uic import loadUi
+
 from modele_integration import ModeleIntegration
+from modele_liste_fonctions import Bibliotheque, ModeleListeFonctions
 
 
 class VueFonction(QWidget):
@@ -11,24 +12,10 @@ class VueFonction(QWidget):
     ajouterPushButton : QPushButton
     supprimerPushButton : QPushButton
 
-    __model = ModeleIntegration
-
     def __init__(self):
         super().__init__()
-        loadUi("ui/fonctions.ui", self)
-        self.model = ModeleIntegration()
+        loadUi('ui/fenêtre_principale.ui', self)
 
-        self.fonctionLineEdit.editingFinished.connect(self.on_fonction_edited)
-        self.ajouterPushButton.clicked.connect(self.on_ajouter_clicked)
+        self.list_model = ModeleListeFonctions(Bibliotheque.bibliotheque())
 
-    def on_fonction_edited(self):
-        fonct_str = self.fonctionLineEdit.text()
-        if self.model.validate_fonction(fonct_str) :
-            self.model.fonction = fonct_str
-        else :
-            QMessageBox.critical(self, "Erreur", "la fonction est invalide")
-            self.fonctionLineEdit.clear()
-            self.fonctionLineEdit.setStyleSheet("background-color: red;")
-
-    def on_ajouter_clicked(self):
-        self.fonctionListView.addAction(self.fonctionLineEdit.text())
+        self.fonctionListView.setModel(self.list_model)

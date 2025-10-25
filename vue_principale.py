@@ -1,10 +1,13 @@
+import sys
+
 from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import QMainWindow, QLineEdit, QVBoxLayout, QMessageBox, QSlider, QCheckBox, QPushButton, \
-    QButtonGroup
+    QButtonGroup, QApplication, QDockWidget
 from PyQt6.uic import loadUi
 
 from modele_integration import ModeleIntegration
 from vue_canvas import MPLCanvas
+from vue_fonctions import VueFonction
 
 
 class VuePrincipal(QMainWindow):
@@ -20,6 +23,7 @@ class VuePrincipal(QMainWindow):
     calculerPushButton : QPushButton
     exporterPushButton : QPushButton
     actionFonctions : QAction
+    fonctionDockWidget : QDockWidget
 
 
     __model = ModeleIntegration
@@ -32,6 +36,7 @@ class VuePrincipal(QMainWindow):
         self.model = ModeleIntegration()
         canvas = MPLCanvas(self.model)
 
+        self.fonctionDockWidget.setHidden(True)
         self.matplotlibVLayout.addWidget(canvas)
 
         self.fonctionLineEdit.editingFinished.connect(self.on_fonction_edited)
@@ -50,6 +55,8 @@ class VuePrincipal(QMainWindow):
         self.calculerPushButton.clicked.connect(canvas.dessiner_integration)
         self.calculerPushButton.clicked.connect(self.on_calculer_button_push)
         self.nombreHorizontalSlider.valueChanged.connect(self.on_slider_moved)
+
+        self.actionFonctions.triggered.connect(self.on_fonctions_triggered)
 
 
 
@@ -103,3 +110,6 @@ class VuePrincipal(QMainWindow):
         else:
             self.model.gaucheCheckBox = False
             self.model.droiteCheckBox = True
+
+    def on_fonctions_triggered(self):
+        self.fonctionDockWidget.setHidden(False)
