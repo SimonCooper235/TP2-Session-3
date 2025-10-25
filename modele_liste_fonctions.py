@@ -4,7 +4,7 @@ from PyQt6.QtCore import QAbstractListModel, Qt, QModelIndex
 
 class Bibliotheque:
     @classmethod
-    def bibliotheque(cls):
+    def bibli_fonctions(cls):
         fonction1=Fonction("x**2")
         fonction2=Fonction("tan(x)")
         fonction3=Fonction("cos(x)")
@@ -29,24 +29,4 @@ class Fonction:
 
 
 class ModeleListeFonctions(QAbstractListModel):
-    def __init__(self, data):
-        super().__init__()
-
-        self.__fonctions = data
-
-    def data(self, index, role):
-        if not index.isValid() :
-            return None
-        fonction = self.__fonctions[index.row()]
-        if role == Qt.ItemDataRole.DisplayRole:
-            return fonction.__str__()
-        elif role == Qt.ItemDataRole.UserRole:
-            return fonction
-        elif role == Qt.ItemDataRole.ToolTipRole:
-            return fonction
-        return None
-
-    def rowCount(self, parent = QModelIndex):
-        return len(self.__fonctions)
-
-
+    pass

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1151</width>
-    <height>607</height>
+    <width>1201</width>
+    <height>616</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -269,7 +269,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1151</width>
+     <width>1201</width>
      <height>21</height>
     </rect>
    </property>
@@ -291,6 +291,9 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QDockWidget" name="fonctionDockWidget">
+   <property name="mouseTracking">
+    <bool>false</bool>
+   </property>
    <property name="floating">
     <bool>true</bool>
    </property>
@@ -303,10 +306,10 @@
    <widget class="QWidget" name="dockWidgetContents_2">
     <layout class="QVBoxLayout" name="verticalLayout_5">
      <item>
+      <widget class="QListView" name="fonctionListView"/>
+     </item>
+     <item>
       <layout class="QVBoxLayout" name="verticalLayout_4">
-       <item>
-        <widget class="QListView" name="fonctionListView"/>
-       </item>
        <item>
         <layout class="QFormLayout" name="formLayout">
          <item row="0" column="0">

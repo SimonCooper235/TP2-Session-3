@@ -2,13 +2,12 @@ import sys
 
 from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import QMainWindow, QLineEdit, QVBoxLayout, QMessageBox, QSlider, QCheckBox, QPushButton, \
-    QButtonGroup, QApplication, QDockWidget
+    QButtonGroup, QApplication, QDockWidget, QListView
 from PyQt6.uic import loadUi
 
 from modele_integration import ModeleIntegration
 from vue_canvas import MPLCanvas
 from vue_fonctions import VueFonction
-
 
 class VuePrincipal(QMainWindow):
     fonctionLineEdit : QLineEdit
@@ -22,8 +21,12 @@ class VuePrincipal(QMainWindow):
     droiteCheckBox : QCheckBox
     calculerPushButton : QPushButton
     exporterPushButton : QPushButton
+
     actionFonctions : QAction
+
     fonctionDockWidget : QDockWidget
+    ajouterPushButton: QPushButton
+    fonctionListView: QListView
 
 
     __model = ModeleIntegration
