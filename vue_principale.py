@@ -10,7 +10,7 @@ from vue_canvas import MPLCanvas
 from vue_fonctions import VueFonction
 
 class VuePrincipal(QMainWindow):
-    fonctionLineEdit : QLineEdit
+    fonctionLineEdit_old : QLineEdit
     borneInfLineEdit : QLineEdit
     borneSupLineEdit : QLineEdit
     sommeLineEdit : QLineEdit
@@ -27,6 +27,9 @@ class VuePrincipal(QMainWindow):
     fonctionDockWidget : QDockWidget
     ajouterPushButton: QPushButton
     fonctionListView: QListView
+    fonctionLineEdit: QLineEdit
+    enregistrerPushButton: QPushButton
+    supprimerPushButton: QPushButton
 
 
     __model = ModeleIntegration
@@ -38,11 +41,12 @@ class VuePrincipal(QMainWindow):
 
         self.model = ModeleIntegration()
         canvas = MPLCanvas(self.model)
+        self.dockWidget = VueFonction()
 
         self.fonctionDockWidget.setHidden(True)
         self.matplotlibVLayout.addWidget(canvas)
 
-        self.fonctionLineEdit.editingFinished.connect(self.on_fonction_edited)
+        self.fonctionLineEdit_old.editingFinished.connect(self.on_fonction_edited)
         self.borneInfLineEdit.textChanged.connect(self.on_borne_inf_edited)
         self.borneInfLineEdit.setText("-1")
         self.borneSupLineEdit.textChanged.connect(self.on_borne_sup_edited)
@@ -60,6 +64,7 @@ class VuePrincipal(QMainWindow):
         self.nombreHorizontalSlider.valueChanged.connect(self.on_slider_moved)
 
         self.actionFonctions.triggered.connect(self.on_fonctions_triggered)
+        self.ajouterPushButton.clicked.connect(self.on_ajouter_pushed)
 
 
 
@@ -116,3 +121,9 @@ class VuePrincipal(QMainWindow):
 
     def on_fonctions_triggered(self):
         self.fonctionDockWidget.setHidden(False)
+        model = self.dockWidget.on_fonction_clicked()
+        self.fonctionListView.setModel(model)
+
+    def on_ajouter_pushed(self):
+        model = self.dockWidget.on_ajouter_clicked(self.fonctionLineEdit.text())
+        self.fonctionListView.setModel(model)

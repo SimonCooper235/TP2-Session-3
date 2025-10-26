@@ -1,33 +1,25 @@
+import json
+
 from PyQt6.QtGui import QStandardItemModel, QStandardItem
-from PyQt6.QtWidgets import QListView, QLineEdit, QPushButton, QDockWidget
-from PyQt6.uic import loadUi
+from PyQt6.QtWidgets import QListView, QDockWidget
 
 import modele_liste_fonctions
 import vue_principale
-from modele_liste_fonctions import Bibliotheque, ModeleListeFonctions
+from modele_liste_fonctions import Fonction, ModeleListeFonctions, Bibliotheque
 
 
 class VueFonction(QDockWidget):
-    fonctionListView: QListView
-    fonctionLineEdit : QLineEdit
-    enregistrerPushButton : QPushButton
-    ajouterPushButton : QPushButton
-    supprimerPushButton : QPushButton
+
 
     def __init__(self):
         super().__init__()
-        loadUi('ui/fenêtre_principale.ui', vue_principale.VuePrincipal)
-
-        self.ajouterPushButton.clicked.connect(lambda : print("Hello"))
 
 
-    def on_ajouter_clicked(self):
-        list_view = QListView(self)
-        model = QStandardItemModel()
-        items = modele_liste_fonctions.Bibliotheque.bibli_fonctions()
-        for item_fonction in items :
-            fonc_str = item_fonction.__str__()
-            item = QStandardItem(fonc_str)
-            model.appendRow(item)
-        list_view.setModel(model)
-        return list_view
+    def on_fonction_clicked(self):
+        list_model = ModeleListeFonctions(Bibliotheque.bibliotheque)
+        return list_model
+
+    def on_ajouter_clicked(self, fonction):
+        Fonction.fonction = fonction
+        ModeleListeFonctions(Bibliotheque.bibliotheque).add_fonction(fonction)
+        return self.on_fonction_clicked()

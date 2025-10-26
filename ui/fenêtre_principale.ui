@@ -46,7 +46,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="fonctionLineEdit">
+       <widget class="QLineEdit" name="fonctionLineEdit_old">
         <property name="minimumSize">
          <size>
           <width>676</width>
@@ -320,7 +320,7 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QLineEdit" name="fonctionLineEdit_2"/>
+          <widget class="QLineEdit" name="fonctionLineEdit"/>
          </item>
         </layout>
        </item>
