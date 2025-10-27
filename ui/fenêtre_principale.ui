@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1201</width>
-    <height>616</height>
+    <height>535</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -46,21 +46,12 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="fonctionLineEdit_old">
+       <widget class="QComboBox" name="fonctionCombobox">
         <property name="minimumSize">
          <size>
-          <width>676</width>
+          <width>0</width>
           <height>131</height>
          </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>676</width>
-          <height>131</height>
-         </size>
-        </property>
-        <property name="frame">
-         <bool>true</bool>
         </property>
        </widget>
       </item>
