@@ -1,7 +1,7 @@
 
 from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import QMainWindow, QLineEdit, QVBoxLayout, QMessageBox, QSlider, QCheckBox, QPushButton, \
-    QButtonGroup, QDockWidget, QListView
+    QButtonGroup, QDockWidget, QListView, QComboBox
 from PyQt6.uic import loadUi
 
 import modele_liste_fonctions
@@ -11,7 +11,7 @@ from vue_canvas import MPLCanvas
 from vue_fonctions import VueFonction
 
 class VuePrincipal(QMainWindow):
-    fonctionComboBox : QLineEdit
+    fonctionCombobox : QComboBox
     borneInfLineEdit : QLineEdit
     borneSupLineEdit : QLineEdit
     sommeLineEdit : QLineEdit
@@ -46,7 +46,6 @@ class VuePrincipal(QMainWindow):
         self.fonctionDockWidget.setHidden(True)
         self.matplotlibVLayout.addWidget(canvas)
 
-        #self.fonctionLineEdit_old.editingFinished.connect(self.on_fonction_edited)
         self.borneInfLineEdit.textChanged.connect(self.on_borne_inf_edited)
         self.borneInfLineEdit.setText("-1")
         self.borneSupLineEdit.textChanged.connect(self.on_borne_sup_edited)
@@ -63,6 +62,7 @@ class VuePrincipal(QMainWindow):
         self.calculerPushButton.clicked.connect(self.on_calculer_button_push)
         self.nombreHorizontalSlider.valueChanged.connect(self.on_slider_moved)
 
+        self.fonctionLineEdit.editingFinished.connect(self.on_fonction_edited)
         self.actionFonctions.triggered.connect(self.on_fonctions_triggered)
         self.ajouterPushButton.clicked.connect(self.on_ajouter_pushed)
         self.supprimerPushButton.clicked.connect(self.on_supprimer_pushed)
@@ -122,8 +122,7 @@ class VuePrincipal(QMainWindow):
 
     def on_fonctions_triggered(self):
         self.fonctionDockWidget.setHidden(False)
-        model = self.dockWidget.on_fonction_clicked()
-        self.fonctionListView.setModel(model)
+        self.update_model()
 
     def on_ajouter_pushed(self):
         model = self.dockWidget.on_ajouter_clicked(self.fonctionLineEdit.text())
@@ -131,4 +130,9 @@ class VuePrincipal(QMainWindow):
 
     def on_supprimer_pushed(self):
         model = self.dockWidget.on_supprimer_clicked(self.fonctionListView.currentIndex())
+        self.fonctionListView.setModel(model)
+
+    def update_model(self):
+        model = self.dockWidget.update_model()
+        self.fonctionCombobox.setModel(model)
         self.fonctionListView.setModel(model)

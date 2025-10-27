@@ -12,14 +12,14 @@ class VueFonction(QDockWidget):
         super().__init__()
 
 
-    def on_fonction_clicked(self):
+    def update_model(self):
         list_model = ModeleListeFonctions('fonctions.json')
         return list_model
 
     def on_ajouter_clicked(self, fonction):
         ModeleListeFonctions('fonctions.json').add_item(fonction)
-        return self.on_fonction_clicked()
+        return self.update_model()
 
     def on_supprimer_clicked(self, index):
         ModeleListeFonctions('fonctions.json').remove_item(index)
-        return self.on_fonction_clicked()
+        return self.update_model()

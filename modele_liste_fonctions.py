@@ -15,6 +15,7 @@ class Fonction:
 
 
 class ModeleListeFonctions(QAbstractListModel):
+
     def __init__(self, json = None, parent=None):
         super().__init__(parent)
 
@@ -55,7 +56,6 @@ class ModeleListeFonctions(QAbstractListModel):
             print(e)
             return
 
-        self.layoutChanged.emit()
 
     def save_json(self):
         with open(self.__json, 'w', encoding="utf-8") as f:
