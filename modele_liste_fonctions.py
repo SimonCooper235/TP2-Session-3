@@ -1,17 +1,15 @@
 import json
-from dataclasses import dataclass
-from dataclasses_json import dataclass_json
 
-from PyQt6.QtCore import QAbstractListModel, Qt, QModelIndex
+from PyQt6.QtCore import QAbstractListModel, Qt, QModelIndex, pyqtSignal, QObject
 
-@dataclass_json
-@dataclass
-class Fonction:
-    __fonction : str
+class Signal(QObject):
+    fonction_changer = pyqtSignal()
 
-    def __str__(self):
-        return self.__fonction
+    def __init__(self):
+        super().__init__()
 
+    def emettre(self):
+        self.fonction_changer.emit()
 
 
 class ModeleListeFonctions(QAbstractListModel):
@@ -60,6 +58,8 @@ class ModeleListeFonctions(QAbstractListModel):
     def save_json(self):
         with open(self.__json, 'w', encoding="utf-8") as f:
             json.dump(self.__data, f)
+        emetteur = Signal()
+        emetteur.emettre()
 
     def add_item(self, item):
         self.beginInsertRows(QModelIndex(), len(self.__data), len(self.__data))

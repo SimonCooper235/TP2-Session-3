@@ -4,9 +4,8 @@ from PyQt6.QtWidgets import QMainWindow, QLineEdit, QVBoxLayout, QMessageBox, QS
     QButtonGroup, QDockWidget, QListView, QComboBox
 from PyQt6.uic import loadUi
 
-import modele_liste_fonctions
 from modele_integration import ModeleIntegration
-from modele_liste_fonctions import ModeleListeFonctions
+from modele_liste_fonctions import Signal
 from vue_canvas import MPLCanvas
 from vue_fonctions import VueFonction
 
@@ -32,20 +31,22 @@ class VuePrincipal(QMainWindow):
     enregistrerPushButton: QPushButton
     supprimerPushButton: QPushButton
 
-
-    __model = ModeleIntegration
-
     def __init__(self):
         super().__init__()
         loadUi('ui/fenêtre_principale.ui', self)
 
         self.model = ModeleIntegration()
+        self.signal = Signal()
+        self.signal.fonction_changer.connect(self.update_model)
+
         canvas = MPLCanvas(self.model)
         self.dockWidget = VueFonction()
+        self.update_model()
 
         self.fonctionDockWidget.setHidden(True)
         self.matplotlibVLayout.addWidget(canvas)
 
+        self.fonctionCombobox.currentTextChanged.connect(self.on_comboBox_changed)
         self.borneInfLineEdit.textChanged.connect(self.on_borne_inf_edited)
         self.borneInfLineEdit.setText("-1")
         self.borneSupLineEdit.textChanged.connect(self.on_borne_sup_edited)
@@ -79,24 +80,18 @@ class VuePrincipal(QMainWindow):
             self.fonctionLineEdit.setStyleSheet("background-color: red;")
 
     def on_borne_inf_edited(self, borne):
-        try:
-            borne_int = int(borne)
-            if self.model.validate_bornes(borne_int):
-                self.model.borneInf = borne_int
-            else:
-                self.borneInfLineEdit.setStyleSheet("background-color : red;")
-        except ValueError as e :
-            pass
+        if self.model.validate_bornes(borne) and int(borne) < int(self.borneSupLineEdit.text()):
+            self.model.borneInf = int(borne)
+            self.borneInfLineEdit.setStyleSheet("background-color : white;")
+        else:
+            self.borneInfLineEdit.setStyleSheet("background-color : red;")
 
     def on_borne_sup_edited(self, borne):
-        try:
-            borne_int = int(borne)
-            if self.model.validate_bornes(borne_int):
-                self.model.borneSup = borne_int
-            else:
-                self.borneSupLineEdit.setStyleSheet("background-color : red;")
-        except ValueError as e :
-            pass
+        if self.model.validate_bornes(borne) and int(borne) > int(self.borneInfLineEdit.text()):
+            self.model.borneSup = int(borne)
+            self.borneInfLineEdit.setStyleSheet("background-color : white;")
+        else:
+            self.borneSupLineEdit.setStyleSheet("background-color : red;")
 
     def on_slider_moved(self, value):
         self.model.nombreHorizontalSlider = value
@@ -136,3 +131,6 @@ class VuePrincipal(QMainWindow):
         model = self.dockWidget.update_model()
         self.fonctionCombobox.setModel(model)
         self.fonctionListView.setModel(model)
+
+    def on_comboBox_changed(self):
+        self.model.fonction = self.fonctionCombobox.currentText()

@@ -7,8 +7,8 @@ class ModeleIntegration(QObject):
     __fonction : None = None
     __sommeLineEdit : float = 0
     __integraleLineEdit : float = 0
-    __borneInf : int = 0
-    __borneSup : int = 0
+    __borneInf : int = -1
+    __borneSup : int = 2
     __nombreHorizontalSlider : int = 1
     __gaucheCheckBox : bool = True
     __droiteCheckBox : bool = False
@@ -116,4 +116,8 @@ class ModeleIntegration(QObject):
         return True
 
     def validate_bornes(self, bornes_str):
-        return True
+        try:
+            int(bornes_str)
+            return True
+        except ValueError as e :
+            return False

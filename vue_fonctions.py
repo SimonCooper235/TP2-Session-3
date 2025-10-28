@@ -3,7 +3,7 @@ import json
 from PyQt6.QtGui import QStandardItemModel, QStandardItem
 from PyQt6.QtWidgets import QListView, QDockWidget
 from PyQt6.uic import loadUi
-from modele_liste_fonctions import Fonction, ModeleListeFonctions
+from modele_liste_fonctions import ModeleListeFonctions
 
 
 class VueFonction(QDockWidget):
